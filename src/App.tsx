@@ -23,8 +23,13 @@ function App() {
       </header>
 
       {/* Hero */}
-      <section className="bg-gradient-to-br from-blue-900 via-blue-800 to-slate-900 py-16 md:py-24 px-4 text-white">
-        <div className="max-w-4xl mx-auto text-center">
+      <section className="relative bg-gradient-to-br from-blue-900 via-blue-800 to-slate-900 py-16 md:py-24 px-4 text-white overflow-hidden">
+        {/* Background Image - Commercial Vehicles */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center opacity-20"
+          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1519003722824-194d4455a60c?w=1600&q=80')" }}
+        ></div>
+        <div className="relative max-w-4xl mx-auto text-center">
           <p className="text-blue-300 font-semibold mb-2 uppercase">Commercial Auto Insurance</p>
           <h2 className="text-4xl md:text-5xl font-bold mb-6">Protect Your Business Vehicles</h2>
           <p className="text-blue-100 text-lg mb-8 max-w-2xl mx-auto">
@@ -39,6 +44,16 @@ function App() {
               📞 800-616-1418
             </a>
           </div>
+        </div>
+      </section>
+
+      {/* Trust Bar */}
+      <section className="bg-blue-900 py-4 px-4">
+        <div className="max-w-4xl mx-auto flex flex-wrap justify-center gap-6 text-blue-100 text-sm">
+          <span>✓ Licensed Since 1966</span>
+          <span>✓ A-Rated Carriers</span>
+          <span>✓ Same-Day Quotes</span>
+          <span>✓ All Fleet Sizes Welcome</span>
         </div>
       </section>
 
@@ -122,7 +137,7 @@ function App() {
       {/* Footer */}
       <footer className="bg-slate-900 text-slate-400 py-8 px-4 text-center">
         <h4 className="text-white font-bold text-xl mb-2">EasyCommercialAuto.com</h4>
-        <p className="text-sm">A Tomlinson & Co Agency • Florida Licensed Since 1987</p>
+        <p className="text-sm">A Tomlinson & Co Agency • Florida Licensed Since 1966</p>
         <p className="text-xs mt-4">© {new Date().getFullYear()} Tomlinson & Co Inc. All rights reserved.</p>
       </footer>
     </div>
