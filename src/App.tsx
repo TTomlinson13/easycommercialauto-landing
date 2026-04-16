@@ -16,7 +16,7 @@ function App() {
             <h1 className="text-2xl font-bold text-slate-800">Easy<span className="text-blue-600">Commercial</span>Auto</h1>
             <p className="text-xs text-slate-500">Business Vehicle Coverage Made Simple</p>
           </div>
-          <a href="https://app.usecanopy.com/c/tomlinson-and-co" target="_blank" rel="noopener noreferrer" className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-semibold text-sm transition">
+          <a href="https://hoinsurance.wufoo.com/forms/z1ba066s0pme7eo/" target="_blank" rel="noopener noreferrer" className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-semibold text-sm transition">
             Get a Quote →
           </a>
         </div>
@@ -32,7 +32,7 @@ function App() {
             Liability, collision, comprehensive, and more.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <a href="https://app.usecanopy.com/c/tomlinson-and-co" target="_blank" rel="noopener noreferrer" className="bg-white text-blue-700 px-8 py-4 rounded-lg font-bold text-lg transition hover:bg-blue-50 shadow-lg">
+            <a href="https://hoinsurance.wufoo.com/forms/z1ba066s0pme7eo/" target="_blank" rel="noopener noreferrer" className="bg-white text-blue-700 px-8 py-4 rounded-lg font-bold text-lg transition hover:bg-blue-50 shadow-lg">
               Start Your Quote →
             </a>
             <a href="tel:800-616-1418" className="bg-blue-700 hover:bg-blue-600 border-2 border-blue-500 text-white px-8 py-4 rounded-lg font-bold text-lg transition">
@@ -109,7 +109,7 @@ function App() {
           <h3 className="text-3xl font-bold mb-4">Get Your Commercial Auto Quote</h3>
           <p className="text-blue-100 text-lg mb-8">Fast quotes, competitive rates, A-rated carriers.</p>
           <div className="flex flex-wrap justify-center gap-4">
-            <a href="https://app.usecanopy.com/c/tomlinson-and-co" target="_blank" rel="noopener noreferrer" className="bg-white text-blue-700 font-bold text-xl py-4 px-8 rounded-lg shadow-lg hover:bg-slate-100 transition">
+            <a href="https://hoinsurance.wufoo.com/forms/z1ba066s0pme7eo/" target="_blank" rel="noopener noreferrer" className="bg-white text-blue-700 font-bold text-xl py-4 px-8 rounded-lg shadow-lg hover:bg-slate-100 transition">
               Start Quote →
             </a>
             <a href="tel:800-616-1418" className="bg-blue-800 hover:bg-blue-900 text-white font-bold text-xl py-4 px-8 rounded-lg shadow-lg transition">

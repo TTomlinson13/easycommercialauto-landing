@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "echo Using pre-built dist",
+    "build": "echo 'Using pre-built dist'",
     "preview": "vite preview"
   },
   "dependencies": {
