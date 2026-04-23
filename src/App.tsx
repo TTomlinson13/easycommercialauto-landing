@@ -36,15 +36,21 @@ function App() {
             From single work trucks to entire fleets — get competitive commercial auto rates from top Florida carriers. 
             Liability, collision, comprehensive, and more.
           </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <a href="https://app.usecanopy.com/c/tomlinson-and-co" target="_blank" rel="noopener noreferrer" className="bg-white text-blue-700 px-8 py-4 rounded-lg font-bold text-lg transition hover:bg-blue-50 shadow-lg">
-              Quick Quote (2 mins) →
+          <div className="flex flex-wrap justify-center gap-3">
+            <a href="https://app.usecanopy.com/c/tomlinson-and-co" target="_blank" rel="noopener noreferrer" className="bg-yellow-400 hover:bg-yellow-300 text-black px-7 py-4 rounded-xl font-bold text-base transition shadow-lg text-center">
+              <span className="block text-xl mb-0.5">⚡</span>
+              Quick Quote
+              <span className="block text-xs font-normal opacity-75">2 mins • Auto-fill</span>
             </a>
-            <a href="https://hoinsurance.wufoo.com/forms/z1ba066s0pme7eo/" target="_blank" rel="noopener noreferrer" className="bg-blue-700 hover:bg-blue-600 border-2 border-blue-500 text-white px-8 py-4 rounded-lg font-bold text-lg transition">
-              Detailed Application
+            <a href="https://hoinsurance.wufoo.com/forms/z1ba066s0pme7eo/" target="_blank" rel="noopener noreferrer" className="bg-white hover:bg-blue-50 text-blue-800 px-7 py-4 rounded-xl font-bold text-base transition shadow-lg text-center">
+              <span className="block text-xl mb-0.5">📝</span>
+              Full Quote Form
+              <span className="block text-xs font-normal opacity-60">Detailed application</span>
             </a>
-            <a href="tel:800-616-1418" className="bg-blue-700 hover:bg-blue-600 border-2 border-blue-500 text-white px-8 py-4 rounded-lg font-bold text-lg transition">
-              📞 800-616-1418
+            <a href="tel:800-616-1418" className="bg-blue-700 hover:bg-blue-600 text-white px-7 py-4 rounded-xl font-bold text-base transition shadow-lg text-center">
+              <span className="block text-xl mb-0.5">📞</span>
+              Call Us
+              <span className="block text-xs font-normal opacity-75">800-616-1418</span>
             </a>
           </div>
         </div>
