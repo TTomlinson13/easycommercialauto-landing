@@ -1,4 +1,7 @@
+import { useState } from 'react'
+
 function App() {
+  const [showNavMenu, setShowNavMenu] = useState(false)
   return (
     <div className="min-h-screen bg-white">
       {/* Top Bar */}
@@ -16,9 +19,24 @@ function App() {
             <h1 className="text-2xl font-bold text-slate-800">Easy<span className="text-blue-600">Commercial</span>Auto</h1>
             <p className="text-xs text-slate-500">Business Vehicle Coverage Made Simple</p>
           </div>
-          <a href="https://app.usecanopy.com/c/tomlinson-and-co" target="_blank" rel="noopener noreferrer" className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-semibold text-sm transition">
-            Get a Quote →
-          </a>
+          <div className="relative">
+            <button onClick={() => setShowNavMenu(!showNavMenu)} className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-semibold text-sm transition">
+              Get a Quote {showNavMenu ? '▲' : '▼'}
+            </button>
+            {showNavMenu && (
+              <div className="absolute right-0 top-full mt-2 w-56 bg-white rounded-xl shadow-2xl border border-blue-100 overflow-hidden" style={{zIndex:9999}}>
+                <a href="https://app.usecanopy.com/c/tomlinson-and-co" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 px-4 py-3 hover:bg-blue-50 transition border-b border-gray-100" onClick={() => setShowNavMenu(false)}>
+                  <span className="text-xl">⚡</span><div className="text-left"><div className="font-bold text-blue-900 text-sm">Quick Quote</div><div className="text-xs text-gray-500">2 mins • Auto-fill</div></div>
+                </a>
+                <a href="https://hoinsurance.wufoo.com/forms/z1ba066s0pme7eo/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 px-4 py-3 hover:bg-blue-50 transition border-b border-gray-100" onClick={() => setShowNavMenu(false)}>
+                  <span className="text-xl">📝</span><div className="text-left"><div className="font-bold text-blue-900 text-sm">Full Quote Form</div><div className="text-xs text-gray-500">Detailed application</div></div>
+                </a>
+                <a href="tel:800-616-1418" className="flex items-center gap-3 px-4 py-3 hover:bg-blue-50 transition" onClick={() => setShowNavMenu(false)}>
+                  <span className="text-xl">📞</span><div className="text-left"><div className="font-bold text-blue-900 text-sm">Call Us</div><div className="text-xs text-gray-500">800-616-1418</div></div>
+                </a>
+              </div>
+            )}
+          </div>
         </div>
       </header>
 
