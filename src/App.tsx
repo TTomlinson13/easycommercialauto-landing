@@ -25,7 +25,7 @@ function App() {
       {/* Hero */}
       <section className="relative bg-blue-900 py-16 md:py-24 px-4 text-white overflow-hidden">
         <style>{`@keyframes kenBurnsCA{0%{transform:scale(1.0) translate(0%,0%)}25%{transform:scale(1.08) translate(-1%,-1.5%)}50%{transform:scale(1.12) translate(1.5%,-1%)}75%{transform:scale(1.08) translate(1%,1.5%)}100%{transform:scale(1.0) translate(0%,0%)}}.hero-bg-ca{animation:kenBurnsCA 30s ease-in-out infinite;will-change:transform;}`}</style>
-        <div className="absolute inset-0 overflow-hidden"><div className="hero-bg-ca absolute inset-0 bg-cover bg-center" style={{backgroundImage:"url('/hero-auto.jpg')",opacity:0.4}}></div><div className="absolute inset-0 bg-gradient-to-br from-blue-900/80 via-blue-800/60 to-slate-900/70"></div></div>
+        <div className="absolute inset-0 overflow-hidden"><div className="hero-bg-ca absolute inset-0 bg-cover bg-center" style={{backgroundImage:"url('/hero-auto.jpg')",opacity:0.4,backgroundPosition:"top center"}}></div><div className="absolute inset-0 bg-gradient-to-br from-blue-900/80 via-blue-800/60 to-slate-900/70"></div></div>
         <div className="relative max-w-4xl mx-auto text-center">
           <p className="text-blue-300 font-semibold mb-2 uppercase">Commercial Auto Insurance</p>
           <h2 className="text-4xl md:text-5xl font-bold mb-6">Protect Your Business Vehicles</h2>
