@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 function App() {
   const [showNavMenu, setShowNavMenu] = useState(false)
@@ -19,7 +20,9 @@ function App() {
             <h1 className="text-2xl font-bold text-slate-800">Easy<span className="text-blue-600">Commercial</span>Auto</h1>
             <p className="text-xs text-slate-500">Business Vehicle Coverage Made Simple</p>
           </div>
-          <div className="relative">
+          <div className="flex items-center gap-4">
+            <Link to="/blog" className="hidden sm:inline text-blue-700 font-semibold hover:text-blue-900 transition text-sm">Blog</Link>
+            <div className="relative">
             <button onClick={() => setShowNavMenu(!showNavMenu)} className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-semibold text-sm transition">
               Get a Quote {showNavMenu ? '▲' : '▼'}
             </button>
@@ -36,6 +39,7 @@ function App() {
                 </a>
               </div>
             )}
+            </div>
           </div>
         </div>
       </header>

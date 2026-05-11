@@ -2,6 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://easycommercialauto.com/</loc>
-    <lastmod>2026-04-18</lastmod>
+    <lastmod>2026-05-10</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://easycommercialauto.com/blog</loc>
+    <lastmod>2026-05-10</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://easycommercialauto.com/blog/florida-commercial-auto-insurance-what-every-business-owner-must-know</loc>
+    <lastmod>2026-05-10</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://easycommercialauto.com/blog/fleet-insurance-vs-individual-commercial-auto-policies</loc>
+    <lastmod>2026-05-07</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://easycommercialauto.com/blog/hired-and-non-owned-auto-insurance-why-your-business-needs-it</loc>
+    <lastmod>2026-05-03</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://easycommercialauto.com/blog/dot-compliance-and-commercial-vehicle-insurance-in-florida</loc>
+    <lastmod>2026-04-29</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://easycommercialauto.com/blog/how-to-lower-your-commercial-auto-insurance-premium</loc>
+    <lastmod>2026-04-24</lastmod>
+    <priority>0.7</priority>
   </url>
 </urlset>
