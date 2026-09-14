@@ -30,6 +30,178 @@ function JotformModal({ onClose }: { onClose: () => void }) {
   )
 }
 
+/* ------------------------------------------------------------------ */
+/* Commercial-auto requirement checker                                 */
+/* ------------------------------------------------------------------ */
+
+type Status = 'ok' | 'add'
+
+interface CheckItem {
+  label: string
+  status: Status
+  tag: string
+  note: string
+}
+
+const AUTO_SAMPLE =
+  "Vendor shall maintain Business Automobile Liability covering all owned, hired, and non-owned " +
+  "vehicles with a combined single limit of not less than $1,000,000 per accident. The Company shall be " +
+  "named as an Additional Insured and such coverage shall be primary and non-contributory. A Waiver of " +
+  "Subrogation shall be provided in favor of the Company. For any transportation of property for hire, " +
+  "motor carrier filings (Form MCS-90) with $1,000,000 of FMCSA coverage are required. A Certificate of " +
+  "Insurance with thirty (30) days' written notice of cancellation must be furnished prior to commencing services."
+
+interface Rule {
+  re: RegExp
+  build: (t: string) => CheckItem
+}
+
+const AUTO_RULES: Rule[] = [
+  {
+    re: /business auto|automobile liability|commercial auto|auto liability/i,
+    build: () => ({ label: 'Commercial Auto Liability', status: 'ok', tag: 'Covered',
+      note: 'Your program carries Business Auto at $1M combined single limit — meets the required limit.' }),
+  },
+  {
+    re: /hired and non[- ]?owned|non[- ]?owned|owned, hired|any auto|symbol 1/i,
+    build: () => ({ label: 'Owned / Hired / Non-Owned', status: 'ok', tag: 'Covered',
+      note: 'Owned, hired, and non-owned autos are all included — no gap for rentals or employee vehicles.' }),
+  },
+  {
+    re: /additional insured/i,
+    build: () => ({ label: 'Additional Insured', status: 'add', tag: "We'll add",
+      note: 'We endorse the company onto your auto policy and show it on the certificate.' }),
+  },
+  {
+    re: /primary and non[- ]?contributory|primary & non/i,
+    build: () => ({ label: 'Primary & Non-Contributory', status: 'add', tag: "We'll endorse",
+      note: 'Added by endorsement so your auto coverage responds first, as the contract requires.' }),
+  },
+  {
+    re: /waiver of subrogation/i,
+    build: () => ({ label: 'Waiver of Subrogation', status: 'add', tag: "We'll endorse",
+      note: 'Waiver in favor of the company endorsed onto the auto policy.' }),
+  },
+  {
+    re: /MCS[- ]?90|motor carrier|FMCSA|for hire|form e\b|form h\b|filing/i,
+    build: () => ({ label: 'Motor Carrier Filing (MCS-90 / FMCSA)', status: 'add', tag: "We'll file",
+      note: 'For for-hire trucking we add the MCS-90 endorsement and file the required federal/state forms.' }),
+  },
+  {
+    re: /certificate of insurance|notice of cancellation|days.{0,12}(notice|cancellation)/i,
+    build: () => ({ label: 'Certificate + Notice of Cancellation', status: 'add', tag: 'Same day',
+      note: 'We issue the ACORD 25 with the required cancellation-notice language before you start.' }),
+  },
+]
+
+function parseAuto(text: string): CheckItem[] {
+  if (text.trim().length < 12) return []
+  return AUTO_RULES.filter((r) => r.re.test(text)).map((r) => r.build(text))
+}
+
+function AutoRequirementChecker({ onQuote }: { onQuote: () => void }) {
+  const [text, setText] = useState(AUTO_SAMPLE)
+  const [items, setItems] = useState<CheckItem[]>(() => parseAuto(AUTO_SAMPLE))
+  const [ran, setRan] = useState(true)
+
+  const covered = items.filter((i) => i.status === 'ok').length
+  const toAdd = items.length - covered
+
+  return (
+    <div className="grid lg:grid-cols-2 gap-6 items-start">
+      {/* input */}
+      <div className="bg-white rounded-2xl border-2 border-slate-200 shadow-sm overflow-hidden">
+        <div className="px-5 py-3 border-b border-slate-100 bg-slate-50 flex items-center gap-2">
+          <span className="text-lg">📋</span>
+          <span className="text-sm font-semibold text-slate-700">Paste the contract's auto-insurance requirements</span>
+        </div>
+        <textarea
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          spellCheck={false}
+          aria-label="Paste contract auto insurance requirements"
+          className="w-full min-h-[240px] p-4 text-sm text-slate-700 font-mono resize-y outline-none focus:bg-blue-50/40"
+        />
+        <div className="px-5 py-4 border-t border-slate-100 flex flex-wrap gap-3 items-center">
+          <button
+            onClick={() => { setItems(parseAuto(text)); setRan(true) }}
+            className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-lg font-semibold text-sm transition"
+          >
+            Check my coverage
+          </button>
+          <button
+            onClick={() => { setText(AUTO_SAMPLE); setItems(parseAuto(AUTO_SAMPLE)); setRan(true) }}
+            className="text-blue-600 hover:underline text-sm font-medium"
+          >
+            Load a sample clause
+          </button>
+          <span className="ml-auto text-xs text-slate-400">Runs in your browser — nothing is sent.</span>
+        </div>
+      </div>
+
+      {/* output */}
+      <div className="bg-white rounded-2xl border-2 border-slate-200 shadow-sm overflow-hidden">
+        <div className="px-5 py-3 border-b border-slate-100 bg-slate-50 flex items-center gap-2">
+          <span className="text-lg">✅</span>
+          <span className="text-sm font-semibold text-slate-700">Your checklist for this contract</span>
+        </div>
+
+        {!ran || items.length === 0 ? (
+          <div className="p-10 text-center text-slate-400 text-sm">
+            {text.trim().length < 12
+              ? 'Paste a requirements paragraph, then press “Check my coverage.”'
+              : "We didn't spot standard auto-insurance requirements in that text. Send it over and we'll read it line by line."}
+          </div>
+        ) : (
+          <>
+            <div className="px-5 py-3 bg-blue-50 border-b border-slate-100 text-sm text-slate-600">
+              <b className="text-slate-900">{items.length}</b> requirements found ·{' '}
+              <b className="text-green-600">{covered}</b> already covered ·{' '}
+              <b className="text-amber-600">{toAdd}</b> we'll handle before you sign.
+            </div>
+            <ul className="divide-y divide-slate-100">
+              {items.map((it) => (
+                <li key={it.label} className="flex gap-3 px-5 py-3.5">
+                  <span
+                    className={`mt-0.5 flex-none w-6 h-6 rounded-full grid place-items-center text-sm font-bold ${
+                      it.status === 'ok' ? 'bg-green-100 text-green-700' : 'bg-amber-100 text-amber-700'
+                    }`}
+                    aria-hidden="true"
+                  >
+                    {it.status === 'ok' ? '✓' : '+'}
+                  </span>
+                  <div className="min-w-0">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="font-semibold text-slate-800 text-sm">{it.label}</span>
+                      <span
+                        className={`text-[10px] uppercase tracking-wide font-semibold px-2 py-0.5 rounded-full ${
+                          it.status === 'ok' ? 'bg-green-100 text-green-700' : 'bg-amber-100 text-amber-700'
+                        }`}
+                      >
+                        {it.tag}
+                      </span>
+                    </div>
+                    <p className="text-sm text-slate-500 mt-0.5">{it.note}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+            <div className="px-5 py-4 border-t border-slate-100 flex flex-wrap gap-3 items-center">
+              <button
+                onClick={onQuote}
+                className="bg-yellow-400 hover:bg-yellow-300 text-black px-5 py-2.5 rounded-lg font-bold text-sm transition"
+              >
+                Get these endorsements — start a quote →
+              </button>
+              <span className="text-xs text-slate-400">Illustrative — final terms subject to your policy.</span>
+            </div>
+          </>
+        )}
+      </div>
+    </div>
+  )
+}
+
 function App() {
   const [showNavMenu, setShowNavMenu] = useState(false)
   const [showJotform, setShowJotform] = useState(false)
@@ -161,6 +333,22 @@ function App() {
               <p className="text-sm text-slate-300">Employee vehicles & rentals</p>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Contract requirement checker */}
+      <section id="checker" className="py-16 px-4 bg-white scroll-mt-20">
+        <div className="max-w-6xl mx-auto">
+          <div className="max-w-3xl mb-8">
+            <p className="text-blue-600 font-semibold uppercase tracking-wider text-sm mb-2">The contract decoder</p>
+            <h3 className="text-3xl font-bold text-slate-800 mb-3">Landed a contract that requires auto coverage? Check it here.</h3>
+            <p className="text-slate-600">
+              Vendor agreements, hauling contracts, and equipment leases bury their auto-insurance
+              requirements in legalese — additional insured, waiver of subrogation, MCS-90 filings. Paste
+              that paragraph and see what your policy already covers and what we'll add before you sign.
+            </p>
+          </div>
+          <AutoRequirementChecker onQuote={() => setShowJotform(true)} />
         </div>
       </section>
 
