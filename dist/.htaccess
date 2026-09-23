@@ -1,5 +1,72 @@
 Options -MultiViews
 RewriteEngine On
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^ index.html [QSA,L]
+
+# ---------------------------------------------------------------------------
+# 1. Canonical host — strip www, so each page has exactly one URL.
+#
+#    www.easycommercialauto.com and easycommercialauto.com both answered 200
+#    with no redirect between them, so every page existed at two addresses and
+#    Google had to guess which to index.
+#
+#    HTTPS is deliberately not forced here: TLS terminates at Hostinger's edge
+#    CDN, so %{HTTPS} is unreliable at this layer and a naive rule risks a
+#    redirect loop. http -> https already works upstream.
+# ---------------------------------------------------------------------------
+RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
+
+# ---------------------------------------------------------------------------
+# 2. index.html is never a URL of its own.
+# ---------------------------------------------------------------------------
+RewriteCond %{THE_REQUEST} \s/+index(\.html)?[\s?] [NC]
+RewriteRule ^ / [R=301,L]
+
+# ---------------------------------------------------------------------------
+# 3. /blog/ -> /blog.
+#
+#    public/blog/ is a real directory (it holds posts.json), so mod_dir 301s
+#    /blog to /blog/ — which means the URL in the sitemap is a redirect rather
+#    than a destination. Collapse it onto the extensionless form, which section
+#    4 then serves directly.
+# ---------------------------------------------------------------------------
+RewriteCond %{THE_REQUEST} \s/+blog/[\s?] [NC]
+RewriteRule ^ /blog [R=301,L]
+
+# ---------------------------------------------------------------------------
+# 4. The app's routes — and ONLY the app's routes — get the SPA shell.
+#
+#    This site is client-rendered: there is no prerendered file per route, so
+#    something has to hand index.html to /blog and /blog/<slug>. The previous
+#    config did that with a blanket catch-all (any path that was not a real
+#    file), which meant EVERY url on the domain returned 200 with the homepage
+#    HTML — including /robots.txt, which crawlers therefore received as a page
+#    of HTML. A sitewide soft 404: Google logs junk URLs as real pages, crawl
+#    budget burns on them, and a broken internal link never surfaces because
+#    nothing ever fails.
+#
+#    The route table is src/main.tsx:  /  ·  /blog  ·  /blog/:slug
+#
+#    The slug pattern is deliberately generic rather than a list of the seven
+#    current posts, because posts are data (public/blog/posts.json) and a new
+#    one must not 404 just because this file was not edited. The cost is that a
+#    nonexistent /blog/<slug> still answers 200 with the shell; the app renders
+#    its own not-found for that. Closing that last gap means prerendering each
+#    post to its own file, the way floridauto, hoinsurance and
+#    easycommercialinsurance do — then this whole section collapses into a
+#    single "serve the .html if it exists" rule.
+#
+#    Note the pattern contains no dot, so /blog/posts.json is untouched and
+#    still serves as the real file it is.
+# ---------------------------------------------------------------------------
+RewriteRule ^$ index.html [L]
+RewriteRule ^blog/?$ index.html [L]
+RewriteRule ^blog/[a-z0-9][a-z0-9-]*/?$ index.html [L]
+
+# ---------------------------------------------------------------------------
+# 5. No catch-all. Anything not matched above is genuinely missing.
+#
+#    Real files still win on their own — assets, images, robots.txt and
+#    sitemap.xml are served because no rule above touches them, not because a
+#    catch-all lets them through.
+# ---------------------------------------------------------------------------
+ErrorDocument 404 /404.html

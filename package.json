@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "sitemap": "node scripts/sitemap.mjs",
     "build": "echo 'Using pre-built dist'",
     "preview": "vite preview"
   },
