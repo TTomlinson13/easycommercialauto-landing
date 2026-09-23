@@ -2,13 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://easycommercialauto.com/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-11</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://easycommercialauto.com/blog</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-11</lastmod>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://easycommercialauto.com/blog/florida-commercial-auto-insurance-your-essential-guide-to-requirements</loc>
+    <lastmod>2026-05-11</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://easycommercialauto.com/blog/fleet-insurance-florida-essential-for-small-business-success</loc>
+    <lastmod>2026-05-11</lastmod>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://easycommercialauto.com/blog/florida-commercial-auto-insurance-what-every-business-owner-must-know</loc>
